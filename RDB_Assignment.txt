@@ -1,0 +1,73 @@
+SELECT * FROM users;
+
+SELECT * FROM progress;
+
+SELECT email_domain, count(user_id) 
+FROM users
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 25;
+
+SELECT city, COUNT(user_id) AS learners
+FROM users
+WHERE city = 'New York';
+	
+SELECT COUNT(*) AS mobile_app_users
+FROM users
+WHERE mobile_app = 'mobile-user';
+
+SELECT strftime('%H', sign_up_at), count(*)
+FROM users
+GROUP BY 1;
+
+SELECT strftime('%m', sign_up_at), count(*)
+FROM users
+GROUP BY 1;
+
+SELECT strftime('%Y-%m-%d', sign_up_at) 
+AS formatted_date
+FROM users
+GROUP BY 1;
+
+SELECT *
+FROM users
+JOIN progress
+ON users.user_id = progress.user_id;
+
+SELECT 
+  email_domain,
+  AVG(learn_cpp) AS avg_cpp,
+  AVG(learn_sql) AS avg_sql,
+  AVG(learn_html) AS avg_html,
+  AVG(learn_javascript) AS avg_javascript,
+  AVG(learn_java) AS avg_java
+FROM users
+JOIN progress
+ON users.user_id = progress.user_id
+WHERE email_domain LIKE '%.edu'
+GROUP BY email_domain
+ORDER BY email_domain;
+
+SELECT 
+  AVG(learn_cpp) AS avg_cpp,
+  AVG(learn_sql) AS avg_sql,
+  AVG(learn_html) AS avg_html,
+  AVG(learn_javascript) AS avg_javascript,
+  AVG(learn_java) AS avg_java
+FROM users
+JOIN progress
+ON users.user_id = progress.user_id
+WHERE country = 'New York';
+
+SELECT 
+  AVG(learn_cpp) AS avg_cpp,
+  AVG(learn_sql) AS avg_sql,
+  AVG(learn_html) AS avg_html,
+  AVG(learn_javascript) AS avg_javascript,
+  AVG(learn_java) AS avg_java
+FROM users
+JOIN progress
+ON users.user_id = progress.user_id
+WHERE country = 'Chicago';
+
+
